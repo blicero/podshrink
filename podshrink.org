@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-08-17 16:24:01 krylon>
+# Time-stamp: <2023-08-17 18:43:42 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -31,3 +31,53 @@
   My first attempt was a Perl script, but that ended having a weird bug I
   didn't have the patience to fix, so I decided to do it all over again, this
   time in Go.
+** Clocktable
+   #+BEGIN: clocktable :scope file :maxlevel 20
+   #+CAPTION: Clock summary at [2023-08-17 Do 18:43]
+   | Headline                  | Time   |      |      |
+   |---------------------------+--------+------+------|
+   | *Total time*              | *0:33* |      |      |
+   |---------------------------+--------+------+------|
+   | podshrink                 | 0:33   |      |      |
+   | \_  Milestones [0/3]      |        | 0:33 |      |
+   | \_    Walking directories |        |      | 0:33 |
+   #+END:
+** Journal
+** Milestones [0/3]
+   :PROPERTIES:
+   :COOKIE_DATA: todo recursive
+   :VISIBILITY: children
+   :END:
+*** TODO Walking directories
+    :LOGBOOK:
+    CLOCK: [2023-08-17 Do 18:10]--[2023-08-17 Do 18:43] =>  0:33
+    :END:
+*** TODO Metadata
+    The Perl script I wrote initially didn't bother with metadata, which in
+    retrospect was a big mistake. So one of the significant improvements is
+    going to be extracting metadata from the original files and tagging the
+    new files.
+*** TODO Convert [0/0]
+    :PROPERTIES:
+    :COOKIE_DATA: todo recursive
+    :VISIBILITY: children
+    :END:
+    My original Perl script took a two-step approach: Convert the original
+    audio file to WAV, then compress the WAV file to Opus. The reasoning was
+    that opusenc(1) takes WAV files as its input, and not all decoders allow
+    for writing WAV output to stdout. If they did, I could pipe the decoder's
+    output directly to opusenc, saving a lot of disk space.
+    In my original approach I created a RAM disk to store the WAV files, but
+    if I could pipe all decoders' output to opusenc, I wouldn't need that at
+    all. We'll see.
+** Components [0/0]
+   :PROPERTIES:
+   :COOKIE_DATA: todo recursive
+   :VISIBILITY: children
+   :END:
+** Bugs [0/0]
+   :PROPERTIES:
+   :COOKIE_DATA: todo recursive
+   :VISIBILITY: children
+   :END:
+   
