@@ -1,0 +1,33 @@
+# -*- mode: org; fill-column: 78; -*-
+# Time-stamp: <2023-08-17 16:24:01 krylon>
+#
+#+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
+#+TAGS: web(w) database(d) javascript(j) ui(u)
+#+TODO: TODO(t) IMPLEMENT(i) TEST(e) RESEARCH(r) | DONE(d)
+#+TODO: MEDITATE(m) PLANNING(p) REFINE(n) | FAILED(f) CANCELLED(c) SUSPENDED(s)
+#+TODO: EXPERIMENT(x) |
+#+PRIORITIES: A G D
+
+* podshrink
+  So, I'm a *very* enthusiastic podcast listener, and I'm also kind of a
+  hoarder when it comes to data. Unfortunately, disk space is finite, and I
+  was shocked one day to a) run out of disk space and b) discovered that
+  downloaded podcast episodes accounted for about 60 percent of the used disk
+  space.
+  I also noted that a lot of podcasts are delivered in formats that aren't
+  very considerate of network bandwidth or disk space. I get that people care
+  about audio quality, but if a 60 minute episode takes up 90 Megabytes,
+  something is very wrong. We're not talking about audiophile music recordings
+  or surround sound. This is people talking. The MP3 revolution of the late
+  1990s happened because MP3 provided decent audio quality for voice data at a
+  bitrate that fit through an ISDN connection and decent quality for music (at
+  least for non-audiophile people with affordable headphones or speakers) at
+  about 1 Megabyte per minute. And since then, Vorbis and more recently
+  Opus have managed to shrink audio data even further without sacrificing
+  quality.
+  So instead of going on a rant about free audio formats and podcasts, I
+  decided to write a tool that converts my downloaded podcast files to opus,
+  thus saving disk space.
+  My first attempt was a Perl script, but that ended having a weird bug I
+  didn't have the patience to fix, so I decided to do it all over again, this
+  time in Go.
