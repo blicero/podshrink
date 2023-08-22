@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 16. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-16 20:55:09 krylon>
+// Time-stamp: <2023-08-18 22:07:58 krylon>
 
 package logdomain
 
@@ -14,11 +14,13 @@ type ID uint8
 // These constants represent the pieces of the application that need to log stuff.
 const (
 	Common ID = iota
+	Walker
 )
 
 // AllDomains returns a slice of all the valid values for ID.
 func AllDomains() []ID {
 	return []ID{
 		Common,
+		Walker,
 	}
 } // func AllDomains() []ID

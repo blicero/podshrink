@@ -1,6 +1,6 @@
 module github.com/blicero/podshrink
 
-go 1.21.0
+go 1.21
 
 require (
 	github.com/blicero/guang v0.0.0-20230112115810-e9ab6a40775e
