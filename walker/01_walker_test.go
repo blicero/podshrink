@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 22. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-22 21:06:58 krylon>
+// Time-stamp: <2023-08-23 10:16:42 krylon>
 
 package walker
 
@@ -16,7 +16,9 @@ func TestWalkerSimple(t *testing.T) {
 	var (
 		err     error
 		w       *Walker
-		q       = make(chan string, 5)
+		fileQ   = make(chan string, 5)
+		cntQ    = make(chan int)
+		fileCnt int
 		folders = []string{
 			"testdata/folder1",
 			"testdata/folder2",
@@ -24,9 +26,24 @@ func TestWalkerSimple(t *testing.T) {
 		}
 	)
 
-	if w, err = Create(testFileFn, q, folders); err != nil {
+	if w, err = Create(testFileFn, fileQ, folders); err != nil {
 		t.Fatalf("Cannot create Walker: %s",
 			err.Error())
+	}
+
+	go countResults(fileQ, cntQ)
+
+	if err = w.Run(); err != nil {
+		t.Errorf("Failed to walk directory trees: %s",
+			err.Error())
+	}
+
+	fileCnt = <-cntQ
+
+	if fileCnt != expectedFileCount {
+		t.Errorf("Unexpected number of files emitted by Walker: %d (expected %d)",
+			fileCnt,
+			expectedFileCount)
 	}
 
 } // func TestWalkerSimple(t *testing.T)

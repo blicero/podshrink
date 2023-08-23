@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 18. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-22 18:54:41 krylon>
+// Time-stamp: <2023-08-23 10:23:28 krylon>
 
 // Package walker implements the walking of directory trees.
 package walker
@@ -59,10 +59,14 @@ func (w *Walker) Run() error {
 			err error
 			f   fs.FS
 		)
+
+		w.log.Printf("[DEBUG] Traversing %s\n",
+			folder)
+
 		w.root = folder
 		f = os.DirFS(folder)
 
-		if err = fs.WalkDir(f, "/", w.process); err != nil {
+		if err = fs.WalkDir(f, ".", w.process); err != nil {
 			return err
 		}
 	}
@@ -75,8 +79,10 @@ func (w *Walker) process(path string, dir fs.DirEntry, incoming error) error {
 		w.log.Printf("[ERROR] Error processing %s: %s\n",
 			path,
 			incoming.Error())
-		if dir.IsDir() {
+		if dir != nil && dir.IsDir() {
 			return fs.SkipDir
+		} else if dir == nil {
+			return nil
 		}
 	}
 
