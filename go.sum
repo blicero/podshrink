@@ -1,5 +1,7 @@
-github.com/blicero/guang v0.0.0-20230112115810-e9ab6a40775e h1:LaLQHP+xVcQOYQDdzjW0gCUEKc5cHUI6mKvneODdG8w=
-github.com/blicero/guang v0.0.0-20230112115810-e9ab6a40775e/go.mod h1:VeJXXYRGStq1L5TOMCmbxWRxh3nW6d2sdnNRBy3Xlqg=
+github.com/blicero/krylib v0.0.0-20230308180103-2ef208d8985d h1:DDdGKdGf1NVImKRy4PdpIqoVgdQkdKyK9Y1VDsAcI24=
+github.com/blicero/krylib v0.0.0-20230308180103-2ef208d8985d/go.mod h1:gdk/cGEYmmPxCWUnKDJNE1FytWYGaNjDMdtWQFtpSjA=
+github.com/dhowden/tag v0.0.0-20230630033851-978a0926ee25 h1:simG0vMYFvNriGhaaat7QVVkaVkXzvqcohaBoLZl9Hg=
+github.com/dhowden/tag v0.0.0-20230630033851-978a0926ee25/go.mod h1:Z3Lomva4pyMWYezjMAU5QWRh0p1VvO4199OHlFnyKkM=
 github.com/hashicorp/logutils v1.0.0 h1:dLEQVugN8vlakKOUE3ihGLTZJRB4j+M2cdTm/ORI65Y=
 github.com/hashicorp/logutils v1.0.0/go.mod h1:QIAnNjmIWmVIIkWDTG1z5v++HQmx9WQRO+LraFDTW64=
 github.com/odeke-em/go-uuid v0.0.0-20151221120446-b211d769a9aa h1:XEhClAZN5U0GUTFRgRdPNgAKO4mP++S+zbqXH+Pr9nU=
