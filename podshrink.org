@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-08-23 10:24:57 krylon>
+# Time-stamp: <2023-08-24 17:25:03 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -56,10 +56,30 @@
     CLOCK: [2023-08-17 Do 18:10]--[2023-08-17 Do 18:43] =>  0:33
     :END:
 *** TODO Metadata
+    :LOGBOOK:
+    CLOCK: [2023-08-24 Do 15:45]--[2023-08-24 Do 17:24] =>  1:39
+    CLOCK: [2023-08-23 Mi 10:30]--[2023-08-23 Mi 10:33] =>  0:03
+    :END:
     The Perl script I wrote initially didn't bother with metadata, which in
     retrospect was a big mistake. So one of the significant improvements is
     going to be extracting metadata from the original files and tagging the
     new files.
+    I found a go library that claims to solve the first part of my problem:
+    https://github.com/dhowden/tag
+    From a first, superficial look, the API looks very nice.
+*** TODO Convert [0/0]
+    :PROPERTIES:
+    :COOKIE_DATA: todo recursive
+    :VISIBILITY: children
+    :END:
+    My original Perl script took a two-step approach: Convert the original
+    audio file to WAV, then compress the WAV file to Opus. The reasoning was
+    that opusenc(1) takes WAV files as its input, and not all decoders allow
+    for writing WAV output to stdout. If they did, I could pipe the decoder's
+    output directly to opusenc, saving a lot of disk space.
+    In my original approach I created a RAM disk to store the WAV files, but
+    if I could pipe all decoders' output to opusenc, I wouldn't need that at
+    all. We'll see.
 *** TODO Convert [0/0]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
