@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 16. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-18 22:07:58 krylon>
+// Time-stamp: <2023-08-24 16:05:20 krylon>
 
 package logdomain
 
@@ -15,6 +15,7 @@ type ID uint8
 const (
 	Common ID = iota
 	Walker
+	Extractor
 )
 
 // AllDomains returns a slice of all the valid values for ID.
@@ -22,5 +23,6 @@ func AllDomains() []ID {
 	return []ID{
 		Common,
 		Walker,
+		Extractor,
 	}
 } // func AllDomains() []ID
