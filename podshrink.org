@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-08-26 20:06:52 krylon>
+# Time-stamp: <2023-08-27 20:15:07 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -33,15 +33,15 @@
   time in Go.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 20
-   #+CAPTION: Clock summary at [2023-08-26 Sa 20:06]
+   #+CAPTION: Clock summary at [2023-08-27 So 20:15]
    | Headline                  | Time    |       |      |
    |---------------------------+---------+-------+------|
-   | *Total time*              | *12:50* |       |      |
+   | *Total time*              | *13:53* |       |      |
    |---------------------------+---------+-------+------|
-   | podshrink                 | 12:50   |       |      |
-   | \_  Milestones [0/3]      |         | 12:50 |      |
+   | podshrink                 | 13:53   |       |      |
+   | \_  Milestones [0/3]      |         | 13:53 |      |
    | \_    Walking directories |         |       | 5:49 |
-   | \_    Metadata            |         |       | 7:01 |
+   | \_    Metadata            |         |       | 8:04 |
    #+END:
 ** Journal
 ** Milestones [0/3]
@@ -58,6 +58,7 @@
     :END:
 *** TODO Metadata
     :LOGBOOK:
+    CLOCK: [2023-08-27 So 19:11]--[2023-08-27 So 20:14] =>  1:03
     CLOCK: [2023-08-26 Sa 20:04]--[2023-08-26 Sa 20:06] =>  0:02
     CLOCK: [2023-08-25 Fr 18:13]--[2023-08-25 Fr 23:30] =>  5:17
     CLOCK: [2023-08-24 Do 15:45]--[2023-08-24 Do 17:24] =>  1:39
