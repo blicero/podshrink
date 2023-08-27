@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 16. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-22 16:49:02 krylon>
+// Time-stamp: <2023-08-27 19:16:02 krylon>
 
 package common
 
@@ -80,14 +80,11 @@ var SuffixPattern = regexp.MustCompile("([.][^.]+)$")
 // BaseDir is the folder where all application-specific files (database,
 // log files, etc) are stored.
 // LogPath is the file to the log path.
-// DbPath is the path of the main database.
-// WebPort is the TCP port the server listens on.
+// CoverDir is the directory to temporarily store cover images.
 var (
-	BaseDir        = filepath.Join(os.Getenv("HOME"), AppName+".d")
-	LogPath        = filepath.Join(BaseDir, AppName+".log")
-	DbPath         = filepath.Join(BaseDir, AppName+".db")
-	SpoolDir       = filepath.Join(BaseDir, "spool")
-	WebPort  int64 = 1337
+	BaseDir  = filepath.Join(os.Getenv("HOME"), AppName+".d")
+	LogPath  = filepath.Join(BaseDir, AppName+".log")
+	CoverDir = filepath.Join(BaseDir, "covers")
 )
 
 // SetBaseDir sets the BaseDir and related variables.
@@ -96,8 +93,7 @@ func SetBaseDir(path string) error {
 
 	BaseDir = path
 	LogPath = filepath.Join(BaseDir, AppName+".log")
-	DbPath = filepath.Join(BaseDir, AppName+".db")
-	SpoolDir = filepath.Join(BaseDir, "spool")
+	CoverDir = filepath.Join(BaseDir, "covers")
 
 	if err := InitApp(); err != nil {
 		fmt.Printf("Error initializing application environment: %s\n", err.Error())
@@ -119,9 +115,9 @@ func InitApp() error {
 		}
 	}
 
-	if err = os.Mkdir(SpoolDir, 0755); err != nil {
+	if err = os.Mkdir(CoverDir, 0755); err != nil {
 		if !os.IsExist(err) {
-			msg := fmt.Sprintf("Error creating BufferPath %s: %s", SpoolDir, err.Error())
+			msg := fmt.Sprintf("Error creating BufferPath %s: %s", CoverDir, err.Error())
 			return errors.New(msg)
 		}
 	}

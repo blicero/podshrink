@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 24. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-27 19:07:28 krylon>
+// Time-stamp: <2023-08-27 19:50:35 krylon>
 
 // Package meta implements extracting metadata from audio files.
 package meta
@@ -10,6 +10,7 @@ package meta
 import (
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/blicero/podshrink/common"
 	"github.com/blicero/podshrink/logdomain"
@@ -86,8 +87,35 @@ func (e *Extractor) ReadTags(path string) (*FileMeta, error) {
 	var cover *tag.Picture
 
 	if cover = rdr.Picture(); cover != nil {
+		var (
+			cpath string
+			ch    *os.File
+		)
 
+		cpath = filepath.Join(
+			common.CoverDir,
+			filepath.Base(path)+cover.Ext)
+
+		if ch, err = os.Create(cpath); err != nil {
+			e.log.Printf("[ERROR] Cannot create %s: %s\n",
+				cpath,
+				err.Error())
+			goto END
+		}
+
+		defer ch.Close() // nolint: errcheck
+
+		if _, err = ch.Write(cover.Data); err != nil {
+			e.log.Printf("[ERROR] Cannot write cover to %s: %s\n",
+				cpath,
+				err.Error())
+			defer os.Remove(cpath)
+			goto END
+		}
+
+		m.Cover = cpath
 	}
 
+END:
 	return m, nil
-} // func (e *Extractor) ReadTags(path string) (FileMeta, error)
+} // func (e *Extractor) ReadTags(path string) (*FileMeta, error)
