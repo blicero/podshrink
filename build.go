@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 01. 02. 2021 by Benjamin Walkenhorst
 // (c) 2021 Benjamin Walkenhorst
-// Time-stamp: <2023-08-16 20:55:43 krylon>
+// Time-stamp: <2023-08-28 16:12:19 krylon>
 
 //go:build ignore
 // +build ignore
@@ -63,14 +63,21 @@ var tasks = map[string][]string{
 		"common",
 		"logdomain",
 	},
-	"test": {},
+	"test": {
+		"walker",
+		"meta",
+	},
 	"vet": {
 		"common",
 		"logdomain",
+		"walker",
+		"meta",
 	},
 	"lint": {
 		"common",
 		"logdomain",
+		"walker",
+		"meta",
 	},
 }
 
