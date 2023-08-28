@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-08-28 17:34:07 krylon>
+# Time-stamp: <2023-08-28 21:10:21 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -33,15 +33,16 @@
   time in Go.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 20
-   #+CAPTION: Clock summary at [2023-08-28 Mo 17:34]
+   #+CAPTION: Clock summary at [2023-08-28 Mo 21:10]
    | Headline                  | Time    |       |       |
    |---------------------------+---------+-------+-------|
-   | *Total time*              | *15:56* |       |       |
+   | *Total time*              | *18:51* |       |       |
    |---------------------------+---------+-------+-------|
-   | podshrink                 | 15:56   |       |       |
-   | \_  Milestones [0/3]      |         | 15:56 |       |
+   | podshrink                 | 18:51   |       |       |
+   | \_  Milestones [0/3]      |         | 18:51 |       |
    | \_    Walking directories |         |       |  5:49 |
    | \_    Metadata            |         |       | 10:07 |
+   | \_    Convert [0/0]       |         |       |  2:55 |
    #+END:
 ** Journal
 ** Milestones [0/3]
@@ -77,18 +78,8 @@
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
     :END:
-    My original Perl script took a two-step approach: Convert the original
-    audio file to WAV, then compress the WAV file to Opus. The reasoning was
-    that opusenc(1) takes WAV files as its input, and not all decoders allow
-    for writing WAV output to stdout. If they did, I could pipe the decoder's
-    output directly to opusenc, saving a lot of disk space.
-    In my original approach I created a RAM disk to store the WAV files, but
-    if I could pipe all decoders' output to opusenc, I wouldn't need that at
-    all. We'll see.
-*** TODO Convert [0/0]
-    :PROPERTIES:
-    :COOKIE_DATA: todo recursive
-    :VISIBILITY: children
+    :LOGBOOK:
+    CLOCK: [2023-08-28 Mo 18:15]--[2023-08-28 Mo 21:10] =>  2:55
     :END:
     My original Perl script took a two-step approach: Convert the original
     audio file to WAV, then compress the WAV file to Opus. The reasoning was
