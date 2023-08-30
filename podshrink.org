@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-08-28 21:10:21 krylon>
+# Time-stamp: <2023-08-28 22:31:45 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -89,6 +89,11 @@
     In my original approach I created a RAM disk to store the WAV files, but
     if I could pipe all decoders' output to opusenc, I wouldn't need that at
     all. We'll see.
+    [2023-08-28 Mo 22:25]
+    Today, I realized that ffmpeg(1) can convert all of the formats I care
+    about directly to opus. Is there any reason not to do this?
+    I can only think of one at the moment, ffmpeg cannot set the metadata I
+    want to.
 ** Components [0/0]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
