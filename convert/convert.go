@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 28. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-28 21:00:59 krylon>
+// Time-stamp: <2023-08-28 22:50:02 krylon>
 
 // Package convert implements the conversion of various audio formats to opus.
 package convert
@@ -20,14 +20,19 @@ var suffixPat = regexp.MustCompile("[.]([^.]+)$")
 
 // Converter wraps the state associated with converting audio files.
 type Converter struct {
-	log *log.Logger
+	log   *log.Logger
+	cnt   int
+	fileQ <-chan string
 }
 
 // New creates a new Converter
-func New() (*Converter, error) {
+func New(cnt int, queue <-chan string) (*Converter, error) {
 	var (
 		err error
-		c   = &Converter{}
+		c   = &Converter{
+			cnt:   cnt,
+			fileQ: queue,
+		}
 	)
 
 	if c.log, err = common.GetLogger(logdomain.Converter); err != nil {
@@ -35,7 +40,7 @@ func New() (*Converter, error) {
 	}
 
 	return c, nil
-} // func New() (*Converter, error)
+} // func New(cnt int, queue <-chan string) (*Converter, error)
 
 func (c *Converter) generateCommand(in, out string) []string {
 	var match []string
