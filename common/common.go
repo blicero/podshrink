@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 16. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-27 19:16:02 krylon>
+// Time-stamp: <2023-08-31 22:47:00 krylon>
 
 package common
 
@@ -82,7 +82,7 @@ var SuffixPattern = regexp.MustCompile("([.][^.]+)$")
 // LogPath is the file to the log path.
 // CoverDir is the directory to temporarily store cover images.
 var (
-	BaseDir  = filepath.Join(os.Getenv("HOME"), AppName+".d")
+	BaseDir  = filepath.Join(os.Getenv("HOME"), ".local", "share", AppName)
 	LogPath  = filepath.Join(BaseDir, AppName+".log")
 	CoverDir = filepath.Join(BaseDir, "covers")
 )
