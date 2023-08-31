@@ -2,18 +2,24 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 28. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-28 21:00:50 krylon>
+// Time-stamp: <2023-08-31 20:49:35 krylon>
 
 package convert
 
-import "testing"
+import (
+	"runtime"
+	"testing"
+)
 
 var conv *Converter
 
 func TestCreateConverter(t *testing.T) {
-	var err error
+	var (
+		err error
+		q   = make(chan string)
+	)
 
-	if conv, err = New(); err != nil {
+	if conv, err = New(runtime.NumCPU(), q); err != nil {
 		conv = nil
 		t.Fatalf("Cannot create Converter: %s",
 			err.Error())
