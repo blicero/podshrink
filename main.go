@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 28. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-31 21:00:08 krylon>
+// Time-stamp: <2023-09-01 10:27:08 krylon>
 
 package main
 
@@ -12,6 +12,7 @@ import (
 	"os"
 	"regexp"
 	"runtime"
+	"time"
 
 	"github.com/blicero/podshrink/common"
 	"github.com/blicero/podshrink/convert"
@@ -46,7 +47,14 @@ func main() {
 
 	queue = make(chan string, workerCnt)
 
-	if trav, err = walker.Create(isAudioFile, queue, flag.Args()); err != nil {
+	var folders = flag.Args()
+
+	fmt.Printf("Processing the following folders: %v\n",
+		folders)
+
+	time.Sleep(time.Second * 3)
+
+	if trav, err = walker.Create(isAudioFile, queue, folders); err != nil {
 		fmt.Printf("Cannot create tree walker: %s\n",
 			err.Error())
 		os.Exit(1)
