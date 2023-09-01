@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-09-01 20:18:33 krylon>
+# Time-stamp: <2023-09-01 21:00:42 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -45,19 +45,21 @@
    | \_    Convert [0/0]       |           |         | 13:17 |
    #+END:
 ** Journal
-** Milestones [0/3]
+** Milestones [2/3]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
    :END:
-*** TODO Walking directories
+*** DONE Walking directories
+    CLOSED: [2023-09-01 Fr 20:40]
     :LOGBOOK:
     CLOCK: [2023-08-23 Mi 09:20]--[2023-08-23 Mi 10:24] =>  1:04
     CLOCK: [2023-08-22 Di 20:00]--[2023-08-22 Di 22:02] =>  2:02
     CLOCK: [2023-08-22 Di 17:35]--[2023-08-22 Di 19:45] =>  2:10
     CLOCK: [2023-08-17 Do 18:10]--[2023-08-17 Do 18:43] =>  0:33
     :END:
-*** TODO Metadata
+*** DONE Metadata
+    CLOSED: [2023-09-01 Fr 20:40]
     :LOGBOOK:
     CLOCK: [2023-08-28 Mo 15:30]--[2023-08-28 Mo 17:33] =>  2:03
     CLOCK: [2023-08-27 So 19:11]--[2023-08-27 So 20:14] =>  1:03
@@ -99,7 +101,13 @@
     I can only think of one at the moment, ffmpeg cannot set the metadata I
     want to.
     [2023-09-01 Fr 09:59]
-    Can I programmatically edit the metadata afterwards?
+    Can I programmatically edit the metadata afterwards? Because the ramdisk I
+    currently use for storing the wav-files runs out of space on my desktop
+    when I try to utilize all 16 logical CPUs.
+    And converting directly to opus would probably be a lot faster, too.
+    [2023-09-01 Fr 21:00]
+    I did find a command line tool called opustags that can edit tags
+    in-place. This is a game changer.
 ** Components [0/0]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
