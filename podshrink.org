@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-08-31 23:26:16 krylon>
+# Time-stamp: <2023-09-01 11:18:51 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -33,16 +33,16 @@
   time in Go.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 20
-   #+CAPTION: Clock summary at [2023-08-31 Do 23:26]
+   #+CAPTION: Clock summary at [2023-09-01 Fr 11:18]
    | Headline                  | Time      |         |       |
    |---------------------------+-----------+---------+-------|
-   | *Total time*              | *1d 1:45* |         |       |
+   | *Total time*              | *1d 3:13* |         |       |
    |---------------------------+-----------+---------+-------|
-   | podshrink                 | 1d 1:45   |         |       |
-   | \_  Milestones [0/3]      |           | 1d 1:45 |       |
+   | podshrink                 | 1d 3:13   |         |       |
+   | \_  Milestones [0/3]      |           | 1d 3:13 |       |
    | \_    Walking directories |           |         |  5:49 |
    | \_    Metadata            |           |         | 10:07 |
-   | \_    Convert [0/0]       |           |         |  9:49 |
+   | \_    Convert [0/0]       |           |         | 11:17 |
    #+END:
 ** Journal
 ** Milestones [0/3]
@@ -79,6 +79,7 @@
     :VISIBILITY: children
     :END:
     :LOGBOOK:
+    CLOCK: [2023-09-01 Fr 09:50]--[2023-09-01 Fr 11:18] =>  1:28
     CLOCK: [2023-08-31 Do 17:15]--[2023-08-31 Do 23:26] =>  6:11
     CLOCK: [2023-08-30 Mi 10:25]--[2023-08-30 Mi 11:08] =>  0:43
     CLOCK: [2023-08-28 Mo 18:15]--[2023-08-28 Mo 21:10] =>  2:55
@@ -96,6 +97,8 @@
     about directly to opus. Is there any reason not to do this?
     I can only think of one at the moment, ffmpeg cannot set the metadata I
     want to.
+    [2023-09-01 Fr 09:59]
+    Can I programmatically edit the metadata afterwards?
 ** Components [0/0]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
