@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 28. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-09-01 10:30:30 krylon>
+// Time-stamp: <2023-09-01 19:48:32 krylon>
 
 // Package convert implements the conversion of various audio formats to opus.
 package convert
@@ -79,18 +79,20 @@ func (c *Converter) worker(id int, wg *sync.WaitGroup) {
 			err       error
 			tags      *meta.FileMeta
 			tmpfile   = filepath.Join(TmpDir, filepath.Base(file))
-			decodeCmd = c.generateCommand(file, tmpfile)
+			decodeCmd []string
 		)
+
+		tmpfile = suffixPat.ReplaceAllString(tmpfile, ".wav")
+		decodeCmd = c.generateCommand(file, tmpfile)
+
+		c.log.Printf("[DEBUG] Worker#%02d - decode %q to %q\n",
+			id,
+			file,
+			tmpfile)
 
 		if len(decodeCmd) == 0 {
 			c.log.Printf("[INFO] Did not find decoder for %s\n",
 				file)
-			continue
-		} else if err = c.execute(decodeCmd); err != nil {
-			c.log.Printf("[ERROR] Failed to decode %s: %s\n",
-				file,
-				err.Error())
-			os.Remove(tmpfile) // nolint: errcheck
 			continue
 		} else if tags, err = c.meta.ReadTags(file); err != nil {
 			c.log.Printf("[ERROR] Cannot extract metadata from %s: %s\n",
@@ -101,11 +103,18 @@ func (c *Converter) worker(id int, wg *sync.WaitGroup) {
 			c.log.Printf("[ERROR] Failed to extract metadata from %s\n",
 				file)
 			continue
+		} else if err = c.execute(decodeCmd); err != nil {
+			c.log.Printf("[ERROR] Failed to decode %s: %s\n%v\n",
+				file,
+				err.Error(),
+				decodeCmd)
+			os.Remove(tmpfile) // nolint: errcheck
+			continue
 		}
 
 		var opus = suffixPat.ReplaceAllString(file, ".opus")
-		c.log.Printf("[DEBUG] Convert %s to %s\n",
-			file,
+		c.log.Printf("[DEBUG] Encode %s to %s\n",
+			tmpfile,
 			opus)
 
 		var encodeCmd = []string{
@@ -133,7 +142,7 @@ func (c *Converter) worker(id int, wg *sync.WaitGroup) {
 
 		if err = c.execute(encodeCmd); err != nil {
 			c.log.Printf("[ERROR] Failed to encode %s to %s: %s\n",
-				file, opus,
+				tmpfile, opus,
 				err.Error())
 			os.Remove(opus) // nolint: errcheck
 		} else {
