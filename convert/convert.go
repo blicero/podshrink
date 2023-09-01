@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 28. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-31 19:45:00 krylon>
+// Time-stamp: <2023-09-01 10:30:30 krylon>
 
 // Package convert implements the conversion of various audio formats to opus.
 package convert
@@ -91,13 +91,19 @@ func (c *Converter) worker(id int, wg *sync.WaitGroup) {
 				file,
 				err.Error())
 			os.Remove(tmpfile) // nolint: errcheck
+			continue
 		} else if tags, err = c.meta.ReadTags(file); err != nil {
 			c.log.Printf("[ERROR] Cannot extract metadata from %s: %s\n",
 				file,
 				err.Error())
+			continue
+		} else if tags == nil {
+			c.log.Printf("[ERROR] Failed to extract metadata from %s\n",
+				file)
+			continue
 		}
 
-		var opus = suffixPat.ReplaceAllString(file, "opus")
+		var opus = suffixPat.ReplaceAllString(file, ".opus")
 		c.log.Printf("[DEBUG] Convert %s to %s\n",
 			file,
 			opus)
@@ -121,6 +127,10 @@ func (c *Converter) worker(id int, wg *sync.WaitGroup) {
 				tags.Cover)
 		}
 
+		encodeCmd = append(encodeCmd,
+			tmpfile,
+			opus)
+
 		if err = c.execute(encodeCmd); err != nil {
 			c.log.Printf("[ERROR] Failed to encode %s to %s: %s\n",
 				file, opus,
@@ -128,6 +138,7 @@ func (c *Converter) worker(id int, wg *sync.WaitGroup) {
 			os.Remove(opus) // nolint: errcheck
 		} else {
 			os.Remove(tmpfile) // nolint: errcheck
+			os.Remove(file)    // nolint: errcheck
 		}
 
 	}
