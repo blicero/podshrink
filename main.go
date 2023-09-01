@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 28. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-09-01 10:27:08 krylon>
+// Time-stamp: <2023-09-01 18:28:30 krylon>
 
 package main
 
@@ -48,6 +48,11 @@ func main() {
 	queue = make(chan string, workerCnt)
 
 	var folders = flag.Args()
+
+	if len(folders) == 0 {
+		fmt.Println("No folders were specified.")
+		return
+	}
 
 	fmt.Printf("Processing the following folders: %v\n",
 		folders)
