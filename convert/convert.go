@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 28. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-09-01 19:48:32 krylon>
+// Time-stamp: <2023-09-04 10:50:47 krylon>
 
 // Package convert implements the conversion of various audio formats to opus.
 package convert
@@ -14,7 +14,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
-	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -76,80 +75,75 @@ func (c *Converter) worker(id int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for file := range c.fileQ {
 		var (
-			err       error
-			tags      *meta.FileMeta
-			tmpfile   = filepath.Join(TmpDir, filepath.Base(file))
-			decodeCmd []string
+			err      error
+			tags     *meta.FileMeta
+			opusfile string
 		)
 
-		tmpfile = suffixPat.ReplaceAllString(tmpfile, ".wav")
-		decodeCmd = c.generateCommand(file, tmpfile)
+		opusfile = suffixPat.ReplaceAllString(file, ".opus")
 
-		c.log.Printf("[DEBUG] Worker#%02d - decode %q to %q\n",
-			id,
+		var convertCmd = []string{
+			"nice",
+			"ffmpeg",
+			"-i",
 			file,
-			tmpfile)
+			opusfile,
+		}
 
-		if len(decodeCmd) == 0 {
-			c.log.Printf("[INFO] Did not find decoder for %s\n",
-				file)
-			continue
-		} else if tags, err = c.meta.ReadTags(file); err != nil {
+		if tags, err = c.meta.ReadTags(file); err != nil {
 			c.log.Printf("[ERROR] Cannot extract metadata from %s: %s\n",
 				file,
 				err.Error())
 			continue
 		} else if tags == nil {
-			c.log.Printf("[ERROR] Failed to extract metadata from %s\n",
+			c.log.Printf("[ERROR] Failed to extract data from %s\n",
 				file)
 			continue
-		} else if err = c.execute(decodeCmd); err != nil {
-			c.log.Printf("[ERROR] Failed to decode %s: %s\n%v\n",
-				file,
-				err.Error(),
-				decodeCmd)
-			os.Remove(tmpfile) // nolint: errcheck
+		} else if err = c.execute(convertCmd); err != nil {
+			c.log.Printf("[ERROR] Cannot convert %s to %s: %s\n",
+				filepath.Base(file),
+				filepath.Base(opusfile),
+				err.Error())
+			os.Remove(opusfile) // nolint: errcheck
 			continue
 		}
 
-		var opus = suffixPat.ReplaceAllString(file, ".opus")
-		c.log.Printf("[DEBUG] Encode %s to %s\n",
-			tmpfile,
-			opus)
-
-		var encodeCmd = []string{
-			"opusenc",
-			"--speech",
-			"--title",
-			tags.Title,
-			"--album",
-			tags.Album,
-			"--tracknumber",
-			strconv.Itoa(tags.Track),
-			"--date",
-			fmt.Sprintf("%04d", tags.Year),
+		// Tag the file.
+		var tagCmd = []string{
+			"opustags",
+			"--in-place",
+			"--add",
+			fmt.Sprintf("ARTIST=%s", tags.Artist),
+			"--add",
+			fmt.Sprintf("ALBUM=%s", tags.Album),
+			"--add",
+			fmt.Sprintf("TITLE=%s", tags.Title),
+			"--add",
+			fmt.Sprintf("DATE=%d", tags.Year),
+			"--add",
+			fmt.Sprintf("TRACK=%d", tags.Track),
 		}
 
 		if tags.Cover != "" {
-			encodeCmd = append(encodeCmd,
-				"--picture",
-				tags.Cover)
+			tagCmd = append(tagCmd,
+				"--set-cover",
+				tags.Cover,
+			)
 		}
 
-		encodeCmd = append(encodeCmd,
-			tmpfile,
-			opus)
+		tagCmd = append(tagCmd, opusfile)
 
-		if err = c.execute(encodeCmd); err != nil {
-			c.log.Printf("[ERROR] Failed to encode %s to %s: %s\n",
-				tmpfile, opus,
+		c.log.Printf("[DEBUG] Execute command: %v\n",
+			tagCmd)
+
+		if err = c.execute(tagCmd); err != nil {
+			c.log.Printf("[ERROR] Cannot apply tags to %s: %s\n",
+				opusfile,
 				err.Error())
-			os.Remove(opus) // nolint: errcheck
-		} else {
-			os.Remove(tmpfile) // nolint: errcheck
-			os.Remove(file)    // nolint: errcheck
+			continue
 		}
 
+		os.Remove(file) // nolint: errcheck
 	}
 } // func (c *Converter) worker(id int)
 
