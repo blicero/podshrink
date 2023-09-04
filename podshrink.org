@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-09-04 10:51:46 krylon>
+# Time-stamp: <2023-09-04 19:18:33 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -33,20 +33,20 @@
   time in Go.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 20
-   #+CAPTION: Clock summary at [2023-09-04 Mo 10:51]
+   #+CAPTION: Clock summary at [2023-09-04 Mo 19:18]
    | Headline                  | Time      |         |       |      |
    |---------------------------+-----------+---------+-------+------|
    | *Total time*              | *1d 9:06* |         |       |      |
    |---------------------------+-----------+---------+-------+------|
    | podshrink                 | 1d 9:06   |         |       |      |
-   | \_  Milestones [2/3]      |           | 1d 9:06 |       |      |
+   | \_  Milestones [4/4]      |           | 1d 9:06 |       |      |
    | \_    Walking directories |           |         |  5:49 |      |
    | \_    Metadata            |           |         | 10:07 |      |
-   | \_    Convert [0/1]       |           |         | 17:10 |      |
+   | \_    Convert [1/1]       |           |         | 17:10 |      |
    | \_      ffmpeg            |           |         |       | 1:58 |
    #+END:
 ** Journal
-** Milestones [2/3]
+** Milestones [4/4]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
@@ -76,7 +76,8 @@
     I found a go library that claims to solve the first part of my problem:
     https://github.com/dhowden/tag
     From a first, superficial look, the API looks very nice.
-*** TODO Convert [0/1]
+*** DONE Convert [1/1]
+    CLOSED: [2023-09-04 Mo 19:18]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
@@ -110,7 +111,8 @@
     [2023-09-01 Fr 21:00]
     I did find a command line tool called opustags that can edit tags
     in-place. This is a game changer.
-**** TEST ffmpeg
+**** DONE ffmpeg
+     CLOSED: [2023-09-04 Mo 19:18]
      :LOGBOOK:
      CLOCK: [2023-09-04 Mo 09:33]--[2023-09-04 Mo 10:51] =>  1:18
      CLOCK: [2023-09-02 Sa 20:06]--[2023-09-02 Sa 20:46] =>  0:40
