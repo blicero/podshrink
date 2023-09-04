@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2023-09-01 21:00:42 krylon>
+# Time-stamp: <2023-09-04 10:51:46 krylon>
 #
 #+TAGS: optimize(o) refactor(r) bug(b) feature(f) architecture(a)
 #+TAGS: web(w) database(d) javascript(j) ui(u)
@@ -33,16 +33,17 @@
   time in Go.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 20
-   #+CAPTION: Clock summary at [2023-09-01 Fr 20:18]
-   | Headline                  | Time      |         |       |
-   |---------------------------+-----------+---------+-------|
-   | *Total time*              | *1d 5:13* |         |       |
-   |---------------------------+-----------+---------+-------|
-   | podshrink                 | 1d 5:13   |         |       |
-   | \_  Milestones [0/3]      |           | 1d 5:13 |       |
-   | \_    Walking directories |           |         |  5:49 |
-   | \_    Metadata            |           |         | 10:07 |
-   | \_    Convert [0/0]       |           |         | 13:17 |
+   #+CAPTION: Clock summary at [2023-09-04 Mo 10:51]
+   | Headline                  | Time      |         |       |      |
+   |---------------------------+-----------+---------+-------+------|
+   | *Total time*              | *1d 9:06* |         |       |      |
+   |---------------------------+-----------+---------+-------+------|
+   | podshrink                 | 1d 9:06   |         |       |      |
+   | \_  Milestones [2/3]      |           | 1d 9:06 |       |      |
+   | \_    Walking directories |           |         |  5:49 |      |
+   | \_    Metadata            |           |         | 10:07 |      |
+   | \_    Convert [0/1]       |           |         | 17:10 |      |
+   | \_      ffmpeg            |           |         |       | 1:58 |
    #+END:
 ** Journal
 ** Milestones [2/3]
@@ -75,12 +76,13 @@
     I found a go library that claims to solve the first part of my problem:
     https://github.com/dhowden/tag
     From a first, superficial look, the API looks very nice.
-*** TODO Convert [0/0]
+*** TODO Convert [0/1]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
     :END:
     :LOGBOOK:
+    CLOCK: [2023-09-01 Fr 21:09]--[2023-09-01 Fr 23:04] =>  1:55
     CLOCK: [2023-09-01 Fr 18:18]--[2023-09-01 Fr 20:18] =>  2:00
     CLOCK: [2023-09-01 Fr 09:50]--[2023-09-01 Fr 11:18] =>  1:28
     CLOCK: [2023-08-31 Do 17:15]--[2023-08-31 Do 23:26] =>  6:11
@@ -108,6 +110,15 @@
     [2023-09-01 Fr 21:00]
     I did find a command line tool called opustags that can edit tags
     in-place. This is a game changer.
+**** TEST ffmpeg
+     :LOGBOOK:
+     CLOCK: [2023-09-04 Mo 09:33]--[2023-09-04 Mo 10:51] =>  1:18
+     CLOCK: [2023-09-02 Sa 20:06]--[2023-09-02 Sa 20:46] =>  0:40
+     :END:
+     I'm going to rewrite the converter to use ffmpeg, convert directly from
+     whatever source format to opus, then use opustags(1) to apply the tags
+     extracted from the source file. This should be *much* faster and much
+     more space-efficient than my current approach.
 ** Components [0/0]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
