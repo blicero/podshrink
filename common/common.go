@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 16. 08. 2023 by Benjamin Walkenhorst
 // (c) 2023 Benjamin Walkenhorst
-// Time-stamp: <2023-08-31 22:47:00 krylon>
+// Time-stamp: <2023-09-04 19:19:16 krylon>
 
 package common
 
@@ -33,7 +33,7 @@ import (
 // their status.
 const (
 	Debug                    = true
-	Version                  = "0.0.1"
+	Version                  = "0.1.0"
 	AppName                  = "podshrink"
 	TimestampFormat          = "2006-01-02 15:04:05"
 	TimestampFormatMinute    = "2006-01-02 15:04"
